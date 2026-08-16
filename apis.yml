@@ -1,7 +1,15 @@
 aid: garuda-therapeutics
 name: Garuda Therapeutics
-description: 'Garuda Therapeutics is a company surfaced via the API Evangelist harvest backlog (source:
-  secondary-market) and added to the network as a stub for full-pipeline profiling.'
+description: 'Garuda Therapeutics was a clinical-stage biotechnology company founded in 2021 by
+  Sean Morrison and David Scadden and headquartered in Massachusetts (Cambridge, later Natick),
+  developing off-the-shelf, self-renewing, HLA-compatible, transgene-free hematopoietic (blood)
+  stem cell therapies intended to remove the dependency on a matched donor or on patient cells in
+  the treatment of hematologic malignancies, sickle cell disease, beta-thalassemia and bone marrow
+  failure. It raised roughly $184M across a $72M Series A and a $50M Series A-1 closed in March
+  2025, backed by OrbiMed Advisors, Northpond Ventures, Cormorant Asset Management and Kyowa Kirin.
+  It is a therapeutics developer, not a software company: it never published an API, SDK, developer
+  portal or machine-readable specification, and its website garudatx.com no longer serves company
+  content and now resolves to a GoDaddy parking lander.'
 url: https://raw.githubusercontent.com/api-evangelist/garuda-therapeutics/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
@@ -12,6 +20,13 @@ created: '2026-08-16'
 modified: '2026-08-16'
 tags:
 - Company
+- Biotechnology
+- Therapeutics
+- Cell Therapy
+- Stem Cells
+- Life Sciences
+- Healthcare
+- Defunct
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -19,5 +34,44 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
-- type: Website
+- type: SecondaryMarketListing
+  name: Forge Global secondary-market listing
   url: https://forgeglobal.com/garuda-therapeutics_stock/
+x-website-status:
+  domain: garudatx.com
+  serves_company_content: false
+  observed: '2026-08-16'
+  state: parked
+  note: >-
+    Deliberately NOT wired as a Website pointer. garudatx.com returns a 114-byte HTML stub that
+    redirects to /lander, the GoDaddy parking single-page app. The Wayback Machine shows the real
+    company site through 2025-01-22, Australian online-casino SEO spam at the 2025-10-09 snapshot,
+    and a ~538-byte holding page from 2026-01-20 onward. garudatherapeutics.com 301s to a
+    HugeDomains for-sale listing. The only live URL for this company is a trading-venue listing,
+    which is a venue page and not a company web presence (roadmap#56), so it is typed
+    SecondaryMarketListing rather than Website.
+x-enrichment:
+  date: '2026-08-16'
+  status: minimal
+  artifacts_added: 1
+  pass: local-v1
+x-coverage:
+  state: none
+  reason: defunct
+  detail: >-
+    Garuda Therapeutics is a clinical-stage cell-therapy developer that never had a developer
+    surface, and its domain garudatx.com has since left its control — it served Australian
+    online-casino SEO spam in October 2025 and now returns a 114-byte stub redirecting to a GoDaddy
+    parking lander, while garudatherapeutics.com 301s to a HugeDomains for-sale page.
+  evidence:
+  - url: https://garudatx.com/
+    status: 200
+  - url: https://garudatx.com/lander
+    status: 200
+  - url: https://garudatx.com/.well-known/agent-card.json
+    status: 200
+  - url: https://garudatx.com/openapi.json
+    status: 200
+  - url: https://garudatherapeutics.com/
+    status: 200
+  checked: '2026-08-16'

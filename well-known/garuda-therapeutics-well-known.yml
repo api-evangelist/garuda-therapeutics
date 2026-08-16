@@ -1,0 +1,111 @@
+generated: '2026-08-16'
+method: probed
+source: https://garudatx.com/
+host: https://garudatx.com
+result: no-documents
+note: >-
+  Every probed path answered HTTP 200 with an identical 114-byte HTML redirect stub
+  (window.location.href="/lander") served by a GoDaddy parking lander, and /lander is the
+  GoDaddy "parking" single-page app. This is a catch-all soft-200, not a served document:
+  no /.well-known/ document, no OpenAPI, no GraphQL surface and no llms.txt exists.
+  /llms.txt is the one path with a distinct body, and it returns robots.txt content
+  ("User-agent: * / Allow: / / Disallow-Training: / / Sitemap: /sitemap.xml") — the
+  parking lander's generic text response, not an llms.txt document.
+  Per the enrichment contract a 200 carrying an HTML/SPA shell is treated as a MISS, so
+  NO WellKnown, SecurityTxt, LLMsTxt, AgentCard, OpenAPI or GraphQL pointer is emitted
+  from this probe.
+  Context: garudatx.com no longer serves Garuda Therapeutics content. The Wayback Machine
+  shows the legitimate company site through 2025-01-22 (nav: Overview / Leadership / Board
+  of Directors / Scientific Advisory Board / News / Join Us), then Australian online-casino
+  SEO spam at the 2025-10-09 snapshot, then a ~538-byte holding page from 2026-01-20 to
+  present. The alternate spelling garudatherapeutics.com is listed for sale on HugeDomains.
+documents:
+  - path: /.well-known/security.txt
+    status: 200
+    document: false
+    note: parking-lander catch-all HTML (114 bytes), not RFC 9116 text
+  - path: /.well-known/openid-configuration
+    status: 200
+    document: false
+    note: parking-lander catch-all HTML, not OIDC discovery JSON
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    document: false
+    note: parking-lander catch-all HTML, not RFC 8414 metadata
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    document: false
+    note: parking-lander catch-all HTML, not RFC 9728 metadata
+  - path: /.well-known/api-catalog
+    status: 200
+    document: false
+    note: parking-lander catch-all HTML, not an RFC 9727 API catalog
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    document: false
+    note: parking-lander catch-all HTML, not a plugin manifest
+  - path: /.well-known/agent-card.json
+    status: 200
+    document: false
+    note: parking-lander catch-all HTML, not an A2A AgentCard JSON object
+  - path: /.well-known/agent.json
+    status: 200
+    document: false
+    note: legacy pre-0.3 path; parking-lander catch-all HTML, not an AgentCard
+contract_discovery:
+  note: >-
+    STEP 0b contract discovery ran against the only known host. There is no apis[] entry,
+    no baseURL, no OpenAPI servers[] host and no separate docs/console host to probe:
+    api.garudatx.com and developer.garudatx.com do not resolve (curl exit 6, DNS failure).
+  probes:
+    - url: https://garudatx.com/openapi.json
+      status: 200
+      parses_as_spec: false
+      note: HTML redirect stub
+    - url: https://garudatx.com/openapi.yaml
+      status: 200
+      parses_as_spec: false
+      note: HTML redirect stub
+    - url: https://garudatx.com/swagger.json
+      status: 200
+      parses_as_spec: false
+      note: HTML redirect stub
+    - url: https://garudatx.com/v1/openapi.json
+      status: 200
+      parses_as_spec: false
+      note: HTML redirect stub
+    - url: https://garudatx.com/api-docs
+      status: 200
+      parses_as_spec: false
+      note: HTML redirect stub
+    - url: https://garudatx.com/docs
+      status: 200
+      parses_as_spec: false
+      note: HTML redirect stub
+    - url: https://garudatx.com/graphql
+      status: 200
+      parses_as_spec: false
+      note: HTML redirect stub; no GraphQL introspection surface
+    - url: https://garudatx.com/llms.txt
+      status: 200
+      parses_as_spec: false
+      note: returns robots.txt content, not llms.txt
+    - url: https://api.garudatx.com/
+      status: 0
+      parses_as_spec: false
+      note: DNS does not resolve
+    - url: https://developer.garudatx.com/
+      status: 0
+      parses_as_spec: false
+      note: DNS does not resolve
+    - url: https://garudatherapeutics.com/
+      status: 200
+      parses_as_spec: false
+      note: 301s to hugedomains.com domain-for-sale listing
+    - url: https://api.github.com/orgs/GarudaTx
+      status: 200
+      parses_as_spec: false
+      note: >-
+        A GitHub org named GarudaTx exists (created 2025-04-04) but has 0 public repos,
+        no description and no verified domain, so it is not evidence of a published
+        surface and is not wired as a GitHubOrganization pointer.
